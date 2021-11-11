@@ -9,12 +9,5 @@ NODE_ORACLEDB_USER = username của cái connection
 NODE_ORACLEDB_PASSWORD = mật khẩu của cái connection
 ```
 
-Sau đó chạy thử `node test_connection.js` xem console có in ra `CLAN` không nha.
-
-Functions:
-```
-getConnection, 
-startup, shutdown
-createPool, getPool
-initOracleClient
-```
+Sau đó chạy thử `npm test` xem console ra kết quả không nha.
+Chạy ứng dụng bằng lệnh `npm start`.
