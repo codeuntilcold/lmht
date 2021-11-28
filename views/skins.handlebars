@@ -1,5 +1,4 @@
 <style>
-
     body {
         --color-1: #5F50BF;
         --color-2: #7382D9;
@@ -27,14 +26,12 @@
     .champion-search {
         position: sticky;
         margin: 10px auto;
-        width: 70%;
         display: flex;
         justify-content: space-between;
     }
 
-    .champion-search > input {
-        width: 70%;
-        margin-left: 20px;
+    .champion-search>input {
+        margin-left: 5px;
     }
 
     .body-data {
@@ -43,34 +40,47 @@
         font-size: 14px;
     }
 
-    table {
+    .body-data table {
         margin: 25px auto;
         width: 70%;
         font-size: 14px;
 
     }
 
-    td, th {
+    .body-data td,
+    .body-data th {
         border: 1px solid #ddd;
         text-align: left;
         padding: 8px;
     }
 
-    th {
+    .body-data th {
         background-color: var(--color-1);
         color: white;
         text-align: center;
     }
 
 
-    tr:nth-child(even) {
+    .body-data tr:nth-child(even) {
         background-color: #ddd;
     }
 
-    tr:nth-child(odd) {
+    .body-data tr:nth-child(odd) {
         background-color: white;
     }
 
+    #add-champ-form {
+        width: 70%;
+        min-width: 425px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    #add-champ-form>label {
+        margin: 5px;
+    }
 </style>
 
 
@@ -83,46 +93,141 @@
 
 <body>
 
-    <div class="body-bg-img"></div>
-    
-    <!-- Form nhập và chỉnh sửa -->
-    <form class="champion-search" action="./skins" method="post">
-        <h3>Tìm tướng</h3>
-        <input type="text" name="champName" id="formGet">
-        <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
-        <input class="disabled" type="submit">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/" class="logo_brand">
+                    <h2>THÔNG TIN TRANG PHỤC</h3>
+                </a>
+
+                <form class="champion-search" action="skins" method="post">
+                    <input type="text" name="champName" id="formGet">
+                    <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
+                    <input class="disabled" type="submit">
+                </form>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/trangbi">TRANG BỊ</a>
+                        </li>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <h1 style="width: 70%; margin: 10px auto;">Thêm trang phục</h1>
+    <form id="add-champ-form" action="skins" method="post">
+
+        <label>Tên tướng
+            <input type="text" name="champName">
+        </label>
+
+        <label>Chủ đề
+            <input type="text" name="skinPostfix">
+        </label>
+
+        <label>Bậc
+            <input type="text" name="skinLevel">
+        </label>
+
+        <label>Ngày ra mắt
+            <input type="text" name="date">
+        </label>
+
+
+        <input class="disabled" type="text" name="clientMethod" value="POST">
+        <input class="disabled" type="submit" value="Tạo trang phục mới">
     </form>
 
     <!-- Hiển thị danh sách -->
     {{#if rows}}
-        <table class="body-data">
-            <tr>
-                {{#each metaData}}
-                <th>{{ this.name }}</th>
-                {{/each}}
-                <!-- <th>Tên trang phục</th>
+
+    <table class="body-data">
+        <tr>
+            <th>STT</th>
+            <th>Tên tướng</th>
+            <th>Chủ đề</th>
+            <th>Bậc</th>
+            <th>Ngày ra mắt</th>
+            <th>Chỉnh sửa</th>
+            <!-- <th>Tên trang phục</th>
                 <th>Bậc</th>
                 <th>Ngày ra mắt</th> -->
-            </tr>
+        </tr>
 
-            
-            {{#each rows}}
-            <tr>
+        {{#each rows}}
+        <tr>
 
-                <td> {{this.TEN_TUONG}} </td>
-                <td> {{this.CHU_DE}} </td>
-                <td> {{this.BAC}} </td>
-                <td> {{this.NGAY_RA_MAT}} </td>
-            </tr>
-            {{/each}}
+            {{!-- <td><input type="text" name="champName" id="update-skin" value="{{this.TEN_TUONG}}"></td> --}}
+            <td>{{@index}}</td>
+            <td> {{this.TEN_TUONG}} </td>
+            <td>
+                <input type="text" name="skinPostfix" id="update-skin-postfix" value="{{this.CHU_DE}}" onkeydown="reactiveInput()">
+            </td>
+            {{!-- <td> {{this.CHU_DE}} </td> --}}
+            <td>
+                <input type="text" name="skinLevel" id="update-skin-level" value='{{this.BAC}}' onkeydown="reactiveInput()">
+            </td>
+            {{!-- <td> {{this.BAC}} </td> --}}
+            <td> {{this.NGAY_RA_MAT}} </td>
+            <td>
 
-        </table>
+                <form action="skins" method="post" id="update-skin">
+                    <input class="disabled" type="text" name="champID" value={{this.MA_TUONG}} >
+                    <input class="disabled" type="text" name="skinID" value={{this.MA_TRANG_PHUC}} >
+                    {{!-- <input type="text" name="skinPostfix" id="update-skin-postfix-clone" value="{{this.CHU_DE}}"> --}}
+                    {{!-- <input type="text" name="skinLevel" id="update-skin-level-clone" value='{{this.BAC}}'>                     --}}
+                    <input class="disabled" type="text" name="clientMethod" value="PUT" >
+                    <input type="submit" value="Ghi" style="background-color: var(--color-5);" >
+                </form>
+
+                <form action="skins" method="post">
+                    <input class="disabled" type="text" name="champID" value={{this.MA_TUONG}}>
+                    <input class="disabled" type="text" name="skinID" value={{this.MA_TRANG_PHUC}}>
+                    {{!-- <input class="disabled" type="text" name="champName" value={{this.TEN_TUONG}}>
+                    <input class="disabled" type="text" name="skinPostfix" value={{this.CHU_DE}}>
+                    <input class="disabled" type="text" name="skinLevel" value={{this.BAC}}> --}}
+                    <input class="disabled" type="text" name="clientMethod" value="DELETE">
+                    <input type="submit" value="Xoá" style="background-color: transparent;">
+                </form>
+
+            </td>
+        </tr>
+        {{/each}}
+
+    </table>
+
+
+
+
+
     {{else}}
-        <p class='body-data'>Không tồn tại tướng trong dữ liệu!</p>
+
+    <p class='body-data'>Không tồn tại tướng trong dữ liệu!</p>
+
     {{/if}}
 
 </body>
 
+<script>
+
+function reactiveInput() {
+    document.getElementById('update-skin-postfix-clone').value = document.getElementById('update-skin-postfix').value
+    document.getElementById('update-skin-level-clone').value = document.getElementById('update-skin-level').value
+
+}
+
+
+
+</script>
 
 
 

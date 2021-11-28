@@ -20,18 +20,11 @@
         margin: 30px auto 30px;
     }
 
-    .body-bg-img {
-        filter: blur(8px);
-        height: 100%;
-        width: 100%;
-
-    }
-
     .disabled {
         display: none;
     }
 
-    .champion-search > input {
+    .champion-search>input {
         width: 100%;
     }
 
@@ -42,15 +35,24 @@
         padding: 50px 0;
         justify-content: space-between;
         height: 100%;
+        min-width: 425px;
     }
 
-    #champion-info > a {
+    #champion-info>a {
         text-decoration: none;
         color: white;
     }
 
-    #champion-info > a > h2 {
+    #champion-info>a>h2 {
         font-size: 50px;
+    }
+
+    #champion-info>a>h2>span {
+        color: transparent;
+    }
+
+    #champion-info>a>h2:hover>span {
+        color: white;
     }
 
     #champion-image {
@@ -75,11 +77,11 @@
                     <h2>THÔNG TIN TƯỚNG</h3>
                 </a>
 
-    <form class="champion-search" action="./champions" method="post">
-        <input type="text" name="champName" id="formGet">
-        <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
-        <input class="disabled" type="submit">
-    </form>
+                <form class="champion-search" action="./champions" method="post">
+                    <input type="text" name="champName" id="formGet">
+                    <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
+                    <input class="disabled" type="submit">
+                </form>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -101,29 +103,42 @@
 
 
     <!-- Hiển thị danh sách -->
-    {{#if name}}
+    {{#if NAME}}
 
     <div id="champion">
         <div id="champion-info">
 
-            <a href="/skins/{{name}}">
-            <h2>{{name}} </h2>
+            <a href="/skins/{{NAME}}">
+                <h2>{{NAME}} <span>></span></h2>
             </a>
-
-            <h3>{{desc}}</h3>
+            <h3>{{DESC}}</h3>
             <br>
-            <h4>Giá: {{price}}</h4>
+            <br>
+            <h4>Giá: {{PRICE}}</h4>
+            <br>
+            <br>
+
+            <h4>Các kỹ năng:</h4>
+            {{#each skills}}
+
+            <p>{{this.ABILITY}} - <i>{{this.EFFECT}}</i></p>
+
+            {{/each}}
+
         </div>
 
         <img src='' alt="None" id="champion-image">
     </div>
+
     {{else}}
+
     <p id='champion'>Không tồn tại tướng trong dữ liệu!</p>
+
     {{/if}}
 
 </body>
 
 
 <script>
-    document.getElementById('champion-image').src = `./champ_img/{{{name}}}_0.jpg`
+    document.getElementById('champion-image').src = `./champ_img/{{{NAME}}}_0.jpg`
 </script>

@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
 router.get('/skins', (_, res) => res.render('skins'))
 router.get('/skins/:champName', skin.getSkins)
 // All request come to POST
-router.post('/skins', skin.postSkin)
+router.post('/skins', skin.handlePostSkin)
+router.post('/skins/:champName', skin.handlePostSkin)
 
 router.get('/champions', (_, res) => res.render('champs'))
 router.post('/champions', champs.postChamp)

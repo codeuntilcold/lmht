@@ -18,8 +18,8 @@ module.exports = {
     async postChamp(req, res) {
         try {
 
-            let champName = req.body.champName
-            let method = req.body.clientMethod
+            const champName = req.body.champName
+            const method = req.body.clientMethod
 
             let sql, binds, options, result;
 
@@ -32,6 +32,7 @@ module.exports = {
             // VULNERABLE TO SQL INJECTION
             sql = `
                 SELECT
+                    MA_TUONG,
                     TEN_TUONG,
                     GIA_MUA,
                     MO_TA
@@ -49,20 +50,41 @@ module.exports = {
                 // fetchArraySize:   5                 // internal buffer allocation size for tuning
             };
 
-            if (method === 'GET') { 
+            if (method === 'GET') {
                 result = await connection.execute(sql, binds, options);
             }
 
-            console.log(result)
-            res.render('champs', {
-                name: result.rows[0]?.TEN_TUONG.charAt(0) + result.rows[0]?.TEN_TUONG.substr(1).toLowerCase(),
-                price: result.rows[0]?.GIA_MUA,
-                desc: result.rows[0]?.MO_TA,
-            })
+            // Thêm kỹ năng tướng
+            let skills;
+
+            sql = `
+                SELECT
+                    TEN_KY_NANG as ability,
+                    MO_TA_KY_NANG as effect
+                FROM KY_NANG_TUONG
+                WHERE MA_TUONG = ${result.rows[0]?.MA_TUONG}
+            `;
+
+            if (method === 'GET') {
+                skills = await connection.execute(sql, binds, options);
+            }
+
+
+            const champDetails = {
+                NAME: result.rows[0]?.TEN_TUONG.charAt(0) + result.rows[0]?.TEN_TUONG.substr(1).toLowerCase(),
+                PRICE: result.rows[0]?.GIA_MUA,
+                DESC: result.rows[0]?.MO_TA,
+                skills: skills.rows
+            }
+
+
+            console.log(champDetails)
+            res.render('champs', champDetails)
 
         } catch (err) {
 
             console.error(err);
+            res.render('champs')
 
         } finally {
             if (connection) {
