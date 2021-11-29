@@ -1,0 +1,47 @@
+<style>
+    body{
+    background: url(https://wallpapercave.com/wp/wp4363437.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" class="logo_brand">
+            <h2>Sở hữu báu vật</h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/taikhoan">TÀI KHOẢN</a>
+              </li>
+              {{!-- <li class="nav-item">
+                <a class="nav-link" href="/user/add">Add User</a>
+              </li> --}}
+          </div>
+        </div>
+      </nav>
+</header>
+<body>
+  <div class="container" id="container">
+    <br>
+    <h1 style = "color:white">{{username}}</h1>
+    <br>
+    {{#each record}}
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Tên báu vật: </strong>{{TEN_BAU_VAT}}</li>
+    </ul>
+    <br>
+    {{/each}}
+    <form>
+    <a class="btn btn-primary" href="/taikhoan"><b>Quay lại</b></a>
+    </form>
+  </div>
+</body>

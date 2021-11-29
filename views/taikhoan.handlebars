@@ -1,0 +1,52 @@
+<style>
+    .error{
+    color: red;
+    margin: 0;
+  }
+  body{
+    background: url(https://wallpapercave.com/wp/wp7413518.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" class="logo_brand">
+            <h2>Liên Minh Huyền Thoại</h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/taikhoan">TÀI KHOẢN</a>
+              </li>
+          </div>
+        </div>
+      </nav>
+</header>
+<body>
+  <div class="container" id="container">
+    <br>
+    <h1 style="color:rgb(255, 255, 255)"><b>TÀI KHOẢN</b></h1>
+    <a style="color:rgb(255, 255, 255)">Tìm kiếm người chơi</a>
+    <br>
+    <br>
+    <form class="form-inline text-left" method="POST" action="/taikhoan/timkiem">
+      <div class="form-group">
+        <input type="text" name="username" class="form-control" placeholder="Nhập username của tài khoản">
+      </div>
+      <br>
+      <input type="submit" class="btn btn-primary" value="Tìm kiếm">
+    </form>
+    <br/>
+    <form class="text-left" method="GET" action="/taikhoan/taotk">
+      <input type="submit" class="btn btn-primary" value="Tạo tài khoản mới">
+    </form>
+  </div>
+</body>

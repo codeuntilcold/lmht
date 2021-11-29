@@ -20,11 +20,18 @@
         margin: 30px auto 30px;
     }
 
+    .body-bg-img {
+        filter: blur(8px);
+        height: 100%;
+        width: 100%;
+
+    }
+
     .disabled {
         display: none;
     }
 
-    .champion-search>input {
+    .champion-search > input {
         width: 100%;
     }
 
@@ -35,24 +42,15 @@
         padding: 50px 0;
         justify-content: space-between;
         height: 100%;
-        min-width: 425px;
     }
 
-    #champion-info>a {
+    #champion-info > a {
         text-decoration: none;
         color: white;
     }
 
-    #champion-info>a>h2 {
+    #champion-info > a > h2 {
         font-size: 50px;
-    }
-
-    #champion-info>a>h2>span {
-        color: transparent;
-    }
-
-    #champion-info>a>h2:hover>span {
-        color: white;
     }
 
     #champion-image {
@@ -76,25 +74,18 @@
                 <a class="navbar-brand" href="/" class="logo_brand">
                     <h2>THÔNG TIN TƯỚNG</h3>
                 </a>
-
-                <form class="champion-search" action="./champions" method="post">
-                    <input type="text" name="champName" id="formGet">
-                    <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
-                    <input class="disabled" type="submit">
-                </form>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/trangbi">TRANG BỊ</a>
-                        </li>
-
-                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">HOME</a>
+              </li>
+              {{!-- <li class="nav-item">
+                <a class="nav-link" href="/user/add">Add User</a>
+              </li> --}}
+          </div>
             </div>
         </nav>
     </header>
@@ -103,42 +94,63 @@
 
 
     <!-- Hiển thị danh sách -->
-    {{#if NAME}}
+    {{#if name }}
 
     <div id="champion">
         <div id="champion-info">
 
-            <a href="/skins/{{NAME}}">
-                <h2>{{NAME}} <span>></span></h2>
+            <a href="/skins/{{name}}">
+            <h2>{{name}} </h2>
             </a>
-            <h3>{{DESC}}</h3>
-            <br>
-            <br>
-            <h4>Giá: {{PRICE}}</h4>
-            <br>
-            <br>
 
-            <h4>Các kỹ năng:</h4>
-            {{#each skills}}
+            <h3>{{desc}}</h3>
+            <br>
+            <h4>Giá: {{price}}</h4>
 
-            <p>{{this.ABILITY}} - <i>{{this.EFFECT}}</i></p>
+            <form method="POST" class="btn btn-danger pull-left" action="/champ/xoa/{{id}}?_method=DELETE">
+            <input type="submit" class="btn btn-danger pull-left btn1" value="Xóa">
 
-            {{/each}}
+            </form>
 
+            <form method="POST" class="btn btn-success pull-left" action="/champ/chinhsua/{{id}}">
+            <input type="submit" class="btn btn-success btn1" value="Chỉnh sửa">
+            </form>
+
+            <form method="GET" action="/champions">
+            <input type="submit" class="btn btn-primary" value="Quay lại">
+            </form>
         </div>
 
         <img src='' alt="None" id="champion-image">
     </div>
-
     {{else}}
+    <div class="container" id="container">
 
-    <p id='champion'>Không tồn tại tướng trong dữ liệu!</p>
+    <nav class="navbar navbar-default">
 
+      <a class="navbar-brand" href="#"><h2><b>Tướng trong trò chơi</h2></a>
+    </nav>
+    <a>Tìm kiếm tướng</a>
+    <form class="form-inline text-center" method="POST" action="./champions">
+      <div class="form-group">
+        <input type="text" name="champName" class="form-control" placeholder="Tên tướng">
+      </div>
+      <br>
+      <input class="disabled" type="text" name="clientMethod" value="GET" id="formGet">
+      <input type="submit" class="btn btn-primary" value="Tìm kiếm">
+    </form>
+    <br/>
+
+    <form class="text-center" method="GET" action="/champ/them">
+      <input type="submit" class="btn btn-primary" value="Thêm">
+    </form>
+    </div>
+    {{#if deleted}} <p class="error">{{error}}</p>{{/if}}
     {{/if}}
 
 </body>
 
 
 <script>
-    document.getElementById('champion-image').src = `./champ_img/{{{NAME}}}_0.jpg`
+    document.getElementById('champion-image').src = `./champ_img/{{{name}}}_0.jpg`
 </script>

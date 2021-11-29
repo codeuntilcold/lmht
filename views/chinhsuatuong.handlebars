@@ -1,0 +1,89 @@
+<style>
+        button {
+        border-radius: 20px;
+        border: 1px solid #FF4B2B;
+        background-color: #FF4B2B;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+    }
+    body {
+        --color-1: #5F50BF;
+        --color-2: #7382D9;
+        --color-3: #1C66A6;
+        --color-4: #1EB7D9;
+        --color-5: #29C7D9;
+
+        height: 100%;
+        color: white;
+
+        /*padding: 20px;*/
+        background-image: url('https://c4.wallpaperflare.com/wallpaper/37/323/635/league-of-legends-shurima-blurred-video-games-wallpaper-preview.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    button:active {
+        transform: scale(0.95);
+    }
+
+    button:focus {
+        outline: none;
+    }
+    .btn1{
+      padding: 0px;
+    }
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" class="logo_brand">
+            <h2>CHỈNH SỬA TƯỚNG</h3>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/champions">Tướng</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">HOME</a>
+              </li>
+              {{!-- <li class="nav-item">
+                <a class="nav-link" href="/user/add">Add User</a>
+              </li> --}}
+          </div>
+        </div>
+      </nav>
+</header>
+
+<body>
+  <div class="container" id="container">
+
+    <h1>{{ten}}</h1>
+    <form method="POST" action="/champ/chinhsua/{{ma}}">
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Mã: </strong>{{ma}}</li>
+      <li class="list-group-item"><strong>Tên: </strong>{{ten}}
+      <input type="text" name="ten" class="form-control" placeholder="Chỉnh sửa tên tướng"></li>
+      <li class="list-group-item"><strong>Mô tả: </strong>{{mt}}
+      <input type="text" name="mt" class="form-control" placeholder="Chỉnh sửa mô tả tướng"></li>
+      <li class="list-group-item"><strong>Giá mua: </strong>{{gm}}
+      <input type="text" name="gm" class="form-control" placeholder="Chỉnh sửa giá mua tướng"></li>
+    </ul>
+    <br>
+     <input type="submit" class="btn btn-primary" value="Hoàn tất">
+    </form>
+    <br/>
+
+    <form method="GET" action="/champions">
+    <input type="submit" class="btn btn-primary" value="Quay lại">
+    </form>
+  </div>
+</body>

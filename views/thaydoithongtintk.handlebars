@@ -1,0 +1,66 @@
+<style>
+  body{
+    background: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/032bf037-64e9-4392-95b5-0ffb77017e58/d9l22af-da0f2273-fe40-4c3e-8206-10902d4c11af.png/v1/fill/w_1024,h_576,q_75,strp/poro_wallpaper_by_cuteshrimpo-d9l22af.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8wMzJiZjAzNy02NGU5LTQzOTItOTViNS0wZmZiNzcwMTdlNTgvZDlsMjJhZi1kYTBmMjI3My1mZTQwLTRjM2UtODIwNi0xMDkwMmQ0YzExYWYucG5nIiwid2lkdGgiOiI8PTEwMjQiLCJoZWlnaHQiOiI8PTU3NiJ9XV19.labEE2YZnYhaX3P1t6cpdKHHxnwKlCr55gPDULnKpGA) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" class="logo_brand">
+            <h2>Thay đổi thông tin tài khoản</h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/taikhoan">TÀI KHOẢN</a>
+              </li>
+              {{!-- <li class="nav-item">
+                <a class="nav-link" href="/user/add">Add User</a>
+              </li> --}}
+          </div>
+        </div>
+      </nav>
+</header>
+
+<body>
+  <div class="container" id="container">
+    <br>
+    <h1 style = "color:white">{{username}}</h1>
+    <br>
+    <form method="POST" action="/taikhoan/thaydoi/{{username}}">
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Username: </strong>{{username}}</li>
+      <li class="list-group-item"><strong>Tên: </strong>{{ten}}
+      <br>
+      <input type="text" name="ten" class="form-control" placeholder="Thay đổi tên người dùng"></li>
+      <li class="list-group-item"><strong>Email: </strong>{{email}}
+      <br>
+      <input type="text" name="email" class="form-control" placeholder="Thay đổi email người dùng">
+      </li>
+      <li class="list-group-item"><strong>Xếp hạng: </strong>{{xephang}}
+      <br>
+      <input type="text" name="xephang" class="form-control" placeholder="Thay đổi xếp hạng tài khoản"></li>
+      <li class="list-group-item"><strong>Cấp: </strong>{{cap}}
+      <br>
+      <input type="text" name="cap" class="form-control" placeholder="Thay đổi cấp của tài khoản"></li>
+      <li class="list-group-item"><strong>Lượng tiền: </strong>{{luongtien}}
+      <br>
+      <input type="text" name="luongtien" class="form-control" placeholder="Thay đổi lượng tiền của tài khoản"></li>
+    </ul>
+    <br>
+     <input type="submit" class="btn btn-primary" value="Xác nhận thay đổi">
+    </form>
+    <br/>
+    <form method="GET" action="/taikhoan">
+      <input type="submit" class="btn btn-primary" value="Quay lại">
+    </form>
+  </div>
+</body>
