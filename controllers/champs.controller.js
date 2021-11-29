@@ -18,8 +18,8 @@ module.exports = {
     async postChamp(req, res) {
         try {
 
-            let champName = req.body.champName
-            let method = req.body.clientMethod
+            const champName = req.body.champName
+            const method = req.body.clientMethod
 
             let sql, binds, options, result;
 
@@ -65,6 +65,7 @@ module.exports = {
         } catch (err) {
 
             console.error(err);
+            res.render('champs')
 
         }
     }
