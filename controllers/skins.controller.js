@@ -5,10 +5,10 @@ module.exports = {
 
     /*
         Quản lý các API liên quan đến skin, bao gồm:
-            
+
             Các skin + đa sắc skin
             Tướng nào có skin nào
-            
+
             Từng ni là đủ ròi :v
             Sở hữu skin
 
@@ -28,10 +28,10 @@ module.exports = {
 
             // VULNERABLE TO SQL INJECTION
             sql = `
-                SELECT 
+                SELECT
                     TEN_TUONG,
-                    CHU_DE, 
-                    BAC, 
+                    CHU_DE,
+                    BAC,
                     NGAY_RA_MAT
                 FROM TUONG NATURAL JOIN TRANG_PHUC
                 ${champName &&
@@ -70,15 +70,15 @@ module.exports = {
     async postSkin(req, res) {
 
         async function getByChampName(connection, binds, options, champName) {
-            
+
             // VULNERABLE TO SQL INJECTION
             const sql = `
                 SELECT
                     MA_TUONG,
                     MA_TRANG_PHUC,
                     TEN_TUONG,
-                    CHU_DE, 
-                    BAC, 
+                    CHU_DE,
+                    BAC,
                     NGAY_RA_MAT
                 FROM TUONG NATURAL JOIN TRANG_PHUC
                 ${champName &&
@@ -104,20 +104,20 @@ module.exports = {
                 autoCommit: true,   // save changes immediately
             };
 
-            
-            
+
+
             connection = await db.connect()
 
-            if (method === 'GET') { 
-                
+            if (method === 'GET') {
+
                 // VULNERABLE TO SQL INJECTION
                 // sql = `
                 //     SELECT
                 //         MA_TUONG,
                 //         MA_TRANG_PHUC,
                 //         TEN_TUONG,
-                //         CHU_DE, 
-                //         BAC, 
+                //         CHU_DE,
+                //         BAC,
                 //         NGAY_RA_MAT
                 //     FROM TUONG NATURAL JOIN TRANG_PHUC
                 //     ${champName &&
@@ -125,10 +125,10 @@ module.exports = {
                 //     }
                 //     ORDER BY TEN_TUONG, CHU_DE`
                 // result = await connection.execute(sql, binds, options);
-                
+
                 result = await getByChampName(connection, binds, options, champName)
                 res.render('skins', result)
-                
+
             }
             else if (method === 'POST') {
 
@@ -140,18 +140,19 @@ module.exports = {
 
                 sql = `
                     SELECT
-                        MA_TUONG,
-                        MA_TRANG_PHUC
-                    FROM TRANG_PHUC
-                    WHERE TEN_TUONG = '${nameofChamp.toUpperCase()}'
-                    ORDER BY MA_TRANG_PHUC
+                        C.MA_TUONG,
+                        S.MA_TRANG_PHUC
+                    FROM TUONG C LEFT OUTER JOIN TRANG_PHUC S
+                        ON C.MA_TUONG = S.MA_TUONG
+                    WHERE C.TEN_TUONG = '${nameofChamp.toUpperCase()}'
+                    ORDER BY S.MA_TRANG_PHUC
                 `
 
                 result = await connection.execute(sql)
-                // console.log(result)
+                console.log(result)
 
                 const matuong = result.rows[0][0]
-                const matp = result.rows[result.rows.length - 1][1]
+                const matp = result.rows[result.rows.length - 1][1] || matuong
 
                 sql = `
                     INSERT INTO TRANG_PHUC VALUES (${matuong}, ${matp + 1}, '${nameofChamp.toUpperCase()}', '${skinPostfix}', '${date}', '${skinLevel}')
@@ -177,7 +178,7 @@ module.exports = {
                 `
 
                 console.log(await connection.execute(sql, binds, options))
-                
+
                 result = await getByChampName(connection, binds, options, champName)
                 res.render('skins', result)
             }
