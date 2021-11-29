@@ -159,14 +159,14 @@ tkrouter.post('/taikhoan/thaydoi/:username', async function(req, res, next){
         catch(err){}
     }
     if(req.body.cap){
-        let sql = "update tai_khoan set cap = '" + req.body.cap + "' where upper(username) like upper('%" + username + "%')";
+        let sql = "update tai_khoan set cap = " + req.body.cap + " where upper(username) like upper('%" + username + "%')";
         console.log(sql);
         try{
             result = await connection.execute(sql, [], {autoCommit: true});}
         catch(err){}
     }
     if(req.body.luongtien){
-        let sql = "update tai_khoan set luong_tien = '" + req.body.luong_tien + "' where upper(username) like upper('%" + username + "%')";
+        let sql = "update tai_khoan set luong_tien = " + req.body.luong_tien + " where upper(username) like upper('%" + username + "%')";
         console.log(sql);
         try{
             result = await connection.execute(sql, [], {autoCommit: true});}
