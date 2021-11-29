@@ -11,7 +11,11 @@
         text-transform: uppercase;
         transition: transform 80ms ease-in;
     }
-
+    body{
+      background: url(AnhNen.jpg);
+      background-size: cover;
+      background-color: #e4efe9;
+    }
     button:active {
         transform: scale(0.95);
     }
@@ -21,11 +25,6 @@
     }
     .btn1{
       padding: 0px;
-    }
-    body{
-      background: url(AnhNen.jpg);
-      background-size: cover;
-      background-color: #e4efe9;
     }
 </style>
 
@@ -42,6 +41,18 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/trangbi">TRANG BỊ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/trandau">TRẬN ĐẤU</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/champions">TƯỚNG</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/skins">TRANG PHỤC</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/taikhoan">TÀI KHOẢN</a>
               </li>
               {{!-- <li class="nav-item">
                 <a class="nav-link" href="/user/add">Add User</a>
@@ -81,6 +92,7 @@
     {{#if flag}}
     {{#each user}}
     <h1>{{TEN_TRANG_BI}}</h1>
+    
     <ul class="list-group">
       <li class="list-group-item"><strong>Mã: </strong>{{MA_TRANG_BI}}</li>
       <li class="list-group-item"><strong>Tên: </strong>{{TEN_TRANG_BI}}</li>
